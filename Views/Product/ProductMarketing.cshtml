@@ -1,0 +1,113 @@
+﻿@model SellDTO
+@{
+    ViewData["Title"] = "Market Listesi";
+}
+
+<h2 class="my-4">Ürünler</h2>
+
+<div class="row">
+    @foreach (var marketing in ViewBag.Product)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="@marketing.FilePath" class="card-img-top" alt="Menu Image">
+                <div class="card-body">
+                    <h5 class="card-title">@marketing.Name</h5>
+                    <p class="card-text"><strong>Fiyat:</strong> @marketing.Sale</p>
+                    <p class="card-text"><strong>Stok:</strong> @marketing.Stock</p>
+                    <form asp-action="ProductMarketing" method="post">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" value="@marketing.Id" asp-for="Id">
+                            <label class="form-check-label" for="product_@marketing.Id">Seç</label>
+                        </div>
+                        <div class="fixed-card">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" value="cash" asp-for="PurchaseType">
+                                    <label class="form-check-label" for="product_@marketing.Id">Nakit</label>
+                                    <br />
+                                    <input type="radio" class="form-check-input" value="credit" asp-for="PurchaseType">
+                                    <label class="form-check-label" for="product_@marketing.Id">Kredi Kartı</label>
+                                </div>
+                                <label>Alınan Miktar</label>
+                                <input type="text" class="form-control" asp-for="Quantity">
+                            </div>
+                            <button type="submit" class="btn btn-secondary mt-2">Satın Al</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="payment-card">
+    <h3>Ödeme Bilgileri</h3>
+    @if (ViewBag.TotalPrice != null)
+    {
+        <p>Ödenecek Tutar: <strong id="total-price">₺ @ViewBag.TotalPrice</strong></p>
+        <button id="reset-button" onclick="resetPrice()">Sıfırla</button>
+    }
+    else
+    {
+        <p>Henüz ödeme bilgisi yok.</p>
+    }
+</div>
+
+<style>
+.payment-card {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    width: 220px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.payment-card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.payment-card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.payment-card strong {
+    color: #000;
+}
+
+#reset-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#reset-button:hover {
+    background-color: #0056b3;
+}
+</style>
+
+<script>
+function resetPrice() {
+    // TotalPrice değerini sıfırla veya yeniden hesapla
+    // Örneğin:
+    var totalPriceElement = document.getElementById('total-price');
+    totalPriceElement.innerText = '0 TL'; // Tutarı sıfırladık, gerekirse burayı değiştirebilirsiniz
+}
+</script>
+
+

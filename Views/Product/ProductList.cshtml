@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ProductDTO>
+@{
+    ViewData["Title"] = "Ürün Listesi";
+}
+
+<h2 class="my-4 text-center">Ürün Listesi</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@product.FilePath" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">
+                            <strong>Alış Bedeli:</strong> @product.Purchase<br />
+                            <strong>Satış Bedeli:</strong> @product.Sale<br />
+                            <strong>Stok:</strong> @product.Stock
+                        </p>
+                        <a href="/Product/UpdateProduct/@product.Id" class="btn btn-primary btn-block">Güncelle</a>
+                        <a href="/Product/DeleteProduct?id=@product.Id" class="btn btn-danger btn-block mt-2">Sil</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

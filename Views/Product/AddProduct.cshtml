@@ -1,0 +1,45 @@
+﻿@model ProductDTO
+
+@{
+    ViewData["Title"] = "Ürün Ekle";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card" style="width: 50%;">
+        <div class="card-body">
+            <h2 class="card-title text-center my-4">Ürün Ekle</h2>
+            <form asp-action="AddProduct" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label>Ürün Adı</label>
+                    <input type="text" class="form-control" asp-for="Name" />
+                </div>
+
+                <div class="form-group">
+                    <label>Alış Bedeli</label>
+                    <input type="number" class="form-control" asp-for="Purchase" />
+                </div>
+
+                <div class="form-group">
+                    <label>Satış Bedeli</label>
+                    <input type="number" class="form-control" asp-for="Sale" />
+                </div>
+
+                <div class="form-group">
+                    <label>Stok</label>
+                    <input type="number" class="form-control" asp-for="Stock" />
+                </div>
+
+                <div class="form-group">
+                    <label>Dosya Seç:</label>
+                    <input type="file" class="form-control-file" id="file" asp-for="File" />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Ekle</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
